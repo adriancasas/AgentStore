@@ -9,7 +9,7 @@ export function ProjectOverview({ project }: { project: Project }) {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">Active Agents in Project</h2>
+        <h2 className="text-2xl font-bold tracking-tight">Agents Enrolled in this Project.</h2>
         <p className="text-muted-foreground">An overview of agents assigned to "{project.name}"</p>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
           {assignedAgents.map(agent => (
