@@ -14,7 +14,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       </Sidebar>
       <SidebarInset className="bg-background">
         <Header project={defaultProject} />
-        <div className="p-4 lg:p-6">{children}</div>
+        <main className="p-4 lg:p-6">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );

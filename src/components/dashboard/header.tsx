@@ -17,13 +17,13 @@ export function Header({ project }: { project: Project }) {
     <header className="flex h-20 items-center gap-4 border-b bg-card px-4 lg:px-6">
       <SidebarTrigger className="lg:hidden" />
       
-      <div>
+      <div className="flex-1 truncate">
         <p className="text-sm text-muted-foreground">Project</p>
-        <h1 className="text-xl font-bold tracking-tight">{project.name}</h1>
+        <h1 className="truncate text-xl font-bold tracking-tight">{project.name}</h1>
       </div>
       
       <div className="ml-auto flex items-center gap-4">
-        <div className="flex -space-x-2">
+        <div className="hidden -space-x-2 md:flex">
           {teamMembers.slice(0, 3).map(user => (
             user &&
             <Avatar key={user.id} className="h-9 w-9 border-2 border-card">
@@ -37,16 +37,16 @@ export function Header({ project }: { project: Project }) {
             </Avatar>
           )}
         </div>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" className="hidden md:inline-flex">
           <Users className="mr-2 h-4 w-4" />
           Share
         </Button>
-        <Button size="sm" className="bg-primary hover:bg-primary/90">
+        <Button size="sm" className="hidden bg-primary hover:bg-primary/90 lg:inline-flex">
           <Plus className="mr-2 h-4 w-4" />
           Add Agent
         </Button>
         
-        <Separator orientation="vertical" className="h-8" />
+        <Separator orientation="vertical" className="h-8 hidden md:block" />
 
         <Popover>
           <PopoverTrigger asChild>
