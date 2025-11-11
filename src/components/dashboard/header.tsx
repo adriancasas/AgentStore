@@ -1,6 +1,5 @@
 'use client';
 
-import { useAuth, useUser } from '@/firebase';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -9,18 +8,17 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import type { Project, User as UserType, Notification } from '@/lib/types';
+import { users } from '@/lib/data';
 
-const teamMembers: UserType[] = [];
+const teamMembers: UserType[] = users;
 const notificationsData: Notification[] = [
     { id: 1, text: "Agent 'Data Miner' has completed its task.", time: "15 minutes ago", read: false },
     { id: 2, text: "New project 'Q4 Report' created.", time: "1 hour ago", read: false },
     { id: 3, text: "Agent 'Web Crawler' has low credits.", time: "3 hours ago", read: true },
 ];
-
+const currentUser = users[0];
 
 export function Header({ project }: { project: Project | null | undefined }) {
-  const auth = useAuth();
-  const { user: currentUser } = useUser();
 
   if (!currentUser) return null;
   
@@ -101,18 +99,18 @@ export function Header({ project }: { project: Project | null | undefined }) {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="rounded-full">
               <Avatar className="h-9 w-9">
-                <AvatarImage src={currentUser.photoURL || undefined} alt={currentUser.displayName || 'User'} />
-                <AvatarFallback>{currentUser.displayName ? currentUser.displayName.charAt(0) : 'U'}</AvatarFallback>
+                <AvatarImage src={currentUser.avatarUrl || undefined} alt={currentUser.name || 'User'} />
+                <AvatarFallback>{currentUser.name ? currentUser.name.charAt(0) : 'U'}</AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuLabel>{currentUser.isAnonymous ? "Anonymous User" : currentUser.displayName}</DropdownMenuLabel>
+            <DropdownMenuLabel>{"Olivia Martin"}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => auth.signOut()}>
+            <DropdownMenuItem>
               <LogOut className="mr-2 h-4 w-4" />
               <span>Log out</span>
             </DropdownMenuItem>
