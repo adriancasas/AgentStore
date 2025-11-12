@@ -170,7 +170,7 @@ export default function ChatPage() {
                 type="submit"
                 size="icon"
                 variant="ghost"
-                className="rounded-full"
+                className="rounded-full bg-muted hover:bg-accent"
                 onClick={() => handleSend()}
                 disabled={isLoading}
               >
