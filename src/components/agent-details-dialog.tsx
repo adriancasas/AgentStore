@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -35,7 +34,7 @@ export default function AgentDetailsDialog({
   const avatar = getImage(agent.avatarId);
 
   const handleSelect = () => {
-    router.push('/dashboard');
+    router.push(`/dashboard?agentId=${agent.id}`);
     onClose();
   };
 
