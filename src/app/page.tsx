@@ -6,16 +6,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Send } from 'lucide-react';
+import { askChatbot } from '@/ai/flows/chatbot-flow';
+import { type ChatMessage } from '@/ai/flows/chatbot-types';
+import { type MessageData } from 'genkit';
 
-interface Message {
-  id: string;
-  text: string;
-  sender: 'user' | 'ai';
-}
 
 export default function ChatPage() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,14 +23,39 @@ export default function ChatPage() {
     }
   }, [messages]);
 
-  const handleSend = () => {
-    if (input.trim()) {
-      setMessages([...messages, { id: Date.now().toString(), text: input, sender: 'user' }]);
-      // Simulate AI response
-      setTimeout(() => {
-        setMessages(prev => [...prev, { id: (Date.now() + 1).toString(), text: `Esta es una respuesta simulada a: "${input}"`, sender: 'ai' }]);
-      }, 1000);
+  const handleSend = async () => {
+    if (input.trim() && !isLoading) {
+      const userMessage: ChatMessage = { id: Date.now().toString(), text: input, sender: 'user' };
+      setMessages(prev => [...prev, userMessage]);
+      const currentInput = input;
       setInput('');
+      setIsLoading(true);
+
+      try {
+        const history: MessageData[] = messages.map(m => ({
+          role: m.sender === 'user' ? 'user' : 'model',
+          content: [{ text: m.text }],
+        }));
+        
+        const response = await askChatbot({ history, message: currentInput });
+
+        const aiMessage: ChatMessage = {
+          id: (Date.now() + 1).toString(),
+          text: response,
+          sender: 'ai',
+        };
+        setMessages(prev => [...prev, aiMessage]);
+      } catch (error) {
+        console.error("Error fetching AI response:", error);
+        const errorMessage: ChatMessage = {
+            id: (Date.now() + 1).toString(),
+            text: "Sorry, I couldn't get a response. Please try again.",
+            sender: 'ai',
+        };
+        setMessages(prev => [...prev, errorMessage]);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -81,6 +105,16 @@ export default function ChatPage() {
                 )}
               </div>
             ))}
+             {isLoading && (
+              <div className="flex items-start gap-3">
+                <Avatar className="h-8 w-8">
+                  <AvatarFallback>AI</AvatarFallback>
+                </Avatar>
+                <div className="max-w-xs rounded-lg p-3 text-sm bg-muted">
+                  <p>...</p>
+                </div>
+              </div>
+            )}
             <div ref={scrollAreaRef} />
           </div>
         </ScrollArea>
@@ -92,12 +126,14 @@ export default function ChatPage() {
               onKeyPress={handleKeyPress}
               placeholder="Escribe tu mensaje..."
               className="pr-12"
+              disabled={isLoading}
             />
             <Button
               type="submit"
               size="icon"
               className="absolute right-1 top-1/2 -translate-y-1/2"
               onClick={handleSend}
+              disabled={isLoading}
             >
               <Send className="h-4 w-4" />
               <span className="sr-only">Enviar</span>
