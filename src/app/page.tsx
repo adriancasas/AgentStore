@@ -182,7 +182,7 @@ export default function Home() {
                   className="w-full"
                   onClick={() => handleConnectClick(agent)}
                 >
-                  Conectar a proyecto
+                  Seleccionar
                 </Button>
               </CardFooter>
             </Card>
