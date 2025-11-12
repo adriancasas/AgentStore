@@ -18,7 +18,7 @@ const icebreakers = [
     prompt: 'Planes y precios',
   },
   {
-    title: 'Saber más sobre el resto de IA Agents disponibles',
+    title: 'Conocer el resto de IA Agents disponibles',
     prompt: 'IA Agents disponibles',
   },
 ];
