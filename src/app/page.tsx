@@ -50,7 +50,7 @@ export default function Home() {
           Agent Store
         </h1>
         <p className="mt-6 text-lg leading-8 text-muted-foreground">
-          Encuentra el agente perfecto para tus necesidades.
+          Una necesidad, muchos agents
         </p>
       </div>
 
