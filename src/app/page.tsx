@@ -112,10 +112,10 @@ export default function ChatPage() {
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-background">
       <div className="w-full max-w-4xl">
-        <div className="flex flex-col rounded-t-lg border bg-card shadow-lg max-h-[80vh]">
-          <header className="flex items-center justify-between border-b p-4 rounded-t-lg bg-card">
-            <h1 className="text-xl font-bold">Welcome to the Agent Store</h1>
-          </header>
+        <h1 className="text-3xl font-bold text-center mb-4">
+          Welcome to the Agent Store
+        </h1>
+        <div className="flex flex-col rounded-lg border bg-card shadow-lg max-h-[80vh]">
           <ScrollArea className="flex-1 p-4">
             <div className="space-y-4">
               {messages.map((message) => (
