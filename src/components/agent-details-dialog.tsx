@@ -46,7 +46,6 @@ export default function AgentDetailsDialog({
     if (!selectedProject) {
       toast({
         variant: 'destructive',
-        title: 'Error',
         description: 'Por favor, selecciona un proyecto.',
       });
       return;
