@@ -22,6 +22,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Agent } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 interface AgentDetailsDialogProps {
   agent: Agent;
@@ -33,6 +34,10 @@ const getImage = (avatarId: string) => {
   return PlaceHolderImages.find((img) => img.id === avatarId);
 };
 
+// Simulamos una lista de proyectos que podría venir de una API.
+// Para probar el caso sin proyectos, cambia esto a: const projects: string[] = [];
+const projects: string[] = ['Proyecto Alpha', 'Proyecto Beta'];
+
 export default function AgentDetailsDialog({
   agent,
   isOpen,
@@ -40,14 +45,13 @@ export default function AgentDetailsDialog({
 }: AgentDetailsDialogProps) {
   const { toast } = useToast();
   const [selectedProject, setSelectedProject] = useState<string>('');
+  const [showValidation, setShowValidation] = useState(false);
   const avatar = getImage(agent.avatarId);
+  const hasProjects = projects.length > 0;
 
   const handleConfirm = () => {
     if (!selectedProject) {
-      toast({
-        variant: 'destructive',
-        description: 'Por favor, selecciona un proyecto.',
-      });
+      setShowValidation(true);
       return;
     }
 
@@ -58,6 +62,13 @@ export default function AgentDetailsDialog({
     onClose();
   };
   
+  const handleSelectChange = (value: string) => {
+    setSelectedProject(value);
+    if (showValidation) {
+      setShowValidation(false);
+    }
+  }
+
   const descriptionPoints = agent.longDescription.split(';').filter(p => p.trim() !== '');
 
   return (
@@ -86,13 +97,24 @@ export default function AgentDetailsDialog({
         </div>
 
         <div className="grid grid-cols-1 items-center gap-4">
-          <Select onValueChange={setSelectedProject} value={selectedProject}>
-            <SelectTrigger>
-              <SelectValue placeholder="Selecciona un proyecto" />
+          <Select 
+            onValueChange={handleSelectChange} 
+            value={selectedProject}
+            disabled={!hasProjects}
+          >
+            <SelectTrigger className={cn(showValidation && 'ring-2 ring-destructive')}>
+              <SelectValue 
+                placeholder={
+                  hasProjects 
+                    ? (showValidation ? "¡Primero selecciona un proyecto!" : "Selecciona un proyecto")
+                    : "No tienes proyectos creados"
+                } 
+              />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Proyecto Alpha">Proyecto Alpha</SelectItem>
-              <SelectItem value="Proyecto Beta">Proyecto Beta</SelectItem>
+              {projects.map((project) => (
+                 <SelectItem key={project} value={project}>{project}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -100,7 +122,7 @@ export default function AgentDetailsDialog({
           <Button variant="outline" onClick={onClose}>
             Cancelar
           </Button>
-          <Button onClick={handleConfirm}>Confirmar Conexión</Button>
+          <Button onClick={handleConfirm} disabled={!hasProjects}>Confirmar Conexión</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
