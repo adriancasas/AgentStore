@@ -39,9 +39,9 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-background">
-      <div className="flex h-[80vh] w-full max-w-4xl flex-col rounded-lg border">
-        <header className="flex items-center justify-between border-b p-4">
+    <div className="flex h-screen flex-col items-center justify-end bg-background">
+      <div className="flex w-full max-w-4xl flex-col rounded-t-lg border bg-card shadow-lg max-h-[80vh]">
+        <header className="flex items-center justify-between border-b p-4 rounded-t-lg bg-card">
           <h1 className="text-xl font-bold">LLM Chat</h1>
         </header>
         <ScrollArea className="flex-1 p-4">
@@ -76,7 +76,7 @@ export default function ChatPage() {
             ))}
           </div>
         </ScrollArea>
-        <div className="border-t p-4">
+        <div className="border-t p-4 bg-card">
           <div className="relative">
             <Input
               value={input}
