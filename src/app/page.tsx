@@ -1,173 +1,19 @@
-'use client';
-
-import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowUp } from 'lucide-react';
-import { askChatbot } from '@/ai/flows/chatbot-flow';
-import { type ChatMessage } from '@/ai/flows/chatbot-types';
-import { type MessageData } from 'genkit';
 
-export default function ChatPage() {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [isMounted, setIsMounted] = useState(false);
-  const [isAiTyping, setIsAiTyping] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-    inputRef.current?.focus();
-
-    setIsAiTyping(true);
-    setTimeout(() => {
-      setMessages([{ id: 'initial-message-1', text: 'Hola! Todo bien? 👋', sender: 'ai' }]);
-      setTimeout(() => {
-        setMessages(prev => [...prev, { id: 'initial-message-2', text: 'Supongo que ya has probado el Youtuber Opt y quieres más potencia. Me equivoco? 😉', sender: 'ai' }]);
-        setTimeout(() => {
-            setMessages(prev => [...prev, { id: 'initial-message-3', text: 'Si es así no perdamos el tiempo. ¿Quieres que empecemos con el análisis en profundidad de tu canal? Estoy aquí para guiarte paso a paso en todo el proceso 💪', sender: 'ai' }]);
-            setTimeout(() => {
-                setMessages(prev => [...prev, { id: 'initial-message-4', text: 'Si es otro agent el que te ha flipado, solo dímelo. 😎', sender: 'ai' }]);
-                setIsAiTyping(false);
-            }, 1500);
-        }, 1500);
-      }, 1500);
-    }, 1000);
-  }, []);
-
-  useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages, isAiTyping]);
-
-  useEffect(() => {
-    if (!isLoading) {
-      inputRef.current?.focus();
-    }
-  }, [isLoading]);
-
-  const handleSend = async (messageText?: string) => {
-    const textToSend = messageText || input;
-    if (textToSend.trim() && !isLoading) {
-      const userMessage: ChatMessage = { id: Date.now().toString(), text: textToSend, sender: 'user' };
-      setMessages(prev => [...prev, userMessage]);
-      if (!messageText) {
-        setInput('');
-      }
-      setIsLoading(true);
-      setIsAiTyping(true);
-
-      try {
-        const history: MessageData[] = messages.map(m => ({
-          role: m.sender === 'user' ? 'user' : 'model',
-          content: [{ text: m.text }],
-        }));
-        
-        const response = await askChatbot({ history, message: textToSend });
-
-        const aiMessage: ChatMessage = {
-          id: (Date.now() + 1).toString(),
-          text: response,
-          sender: 'ai',
-        };
-        setMessages(prev => [...prev, aiMessage]);
-      } catch (error) {
-        console.error("Error fetching AI response:", error);
-        const errorMessage: ChatMessage = {
-            id: (Date.now() + 1).toString(),
-            text: "Sorry, I couldn't get a response. Please try again.",
-            sender: 'ai',
-        };
-        setMessages(prev => [...prev, errorMessage]);
-      } finally {
-        setIsLoading(false);
-        setIsAiTyping(false);
-      }
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
-  
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSend();
-    }
-  };
-
-  if (!isMounted) {
-    return null;
-  }
-
+export default function Home() {
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-background p-4">
-      <div className="w-full max-w-4xl px-4">
-        <h1 className="text-3xl font-bold text-center mb-4">
-          Welcome to the Agent Store
+    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
+          Hola, mundo
         </h1>
-        <div className="flex flex-col rounded-lg border bg-card shadow-lg max-h-[80vh]">
-          <ScrollArea className="flex-1 p-4">
-            <div className="space-y-4">
-              {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex items-start gap-3 ${
-                    message.sender === 'user' ? 'justify-end' : ''
-                  }`}
-                >
-                  <div
-                    className={`max-w-md rounded-xl p-3 text-sm ${
-                      message.sender === 'user'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted'
-                    }`}
-                  >
-                    <p>{message.text}</p>
-                  </div>
-                </div>
-              ))}
-               {isAiTyping && (
-                <div className="flex items-start gap-3">
-                  <div className="max-w-xs rounded-xl p-3 text-sm bg-muted">
-                    <p>...</p>
-                  </div>
-                </div>
-              )}
-              <div ref={scrollAreaRef} />
-            </div>
-          </ScrollArea>
-          
-          <div className="border-t p-4 bg-card">
-            <div className="flex items-center gap-2">
-              <Input
-                ref={inputRef}
-                value={input}
-                onChange={handleInputChange}
-                onKeyPress={handleKeyPress}
-                placeholder="Escribe tu mensaje..."
-                className="flex-1"
-                disabled={isLoading || isAiTyping}
-              />
-              <Button
-                type="submit"
-                size="icon"
-                variant="ghost"
-                className="rounded-full bg-muted hover:bg-accent"
-                onClick={() => handleSend()}
-                disabled={isLoading || isAiTyping}
-              >
-                <ArrowUp className="h-5 w-5" />
-                <span className="sr-only">Enviar</span>
-              </Button>
-            </div>
-          </div>
+        <p className="mt-6 text-lg leading-8 text-muted-foreground">
+          Este es tu lienzo en blanco. ¡Construyamos algo increíble!
+        </p>
+        <div className="mt-10 flex items-center justify-center gap-x-6">
+          <Button>Empezar</Button>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
