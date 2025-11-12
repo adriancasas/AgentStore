@@ -63,7 +63,7 @@ export default function AgentDetailsDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[480px]">
+      <DialogContent className="sm:max-w-[480px] bg-muted">
         <DialogHeader className="items-center text-center">
           <Avatar className="w-28 h-28 mb-4">
             <AvatarImage
