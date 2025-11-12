@@ -58,6 +58,8 @@ export default function AgentDetailsDialog({
     });
     onClose();
   };
+  
+  const descriptionPoints = agent.longDescription.split(';').filter(p => p.trim() !== '');
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -77,7 +79,11 @@ export default function AgentDetailsDialog({
         </DialogHeader>
 
         <div className="py-4 px-1 text-sm text-muted-foreground text-left">
-          <p>{agent.longDescription}</p>
+           <ul className="space-y-2 list-disc list-inside">
+              {descriptionPoints.map((point, index) => (
+                <li key={index}>{point}</li>
+              ))}
+            </ul>
         </div>
 
         <div className="grid grid-cols-1 items-center gap-4">

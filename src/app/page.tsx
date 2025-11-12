@@ -23,7 +23,7 @@ const allAgents: Agent[] = [
     name: 'Data Miner',
     specialty: 'Especialista en extracción y análisis de datos a gran escala.',
     longDescription:
-      'Data Miner es un agente de IA avanzado diseñado para extraer y analizar patrones complejos de grandes conjuntos de datos. Es ideal para inteligencia de mercado, investigación científica y análisis predictivo. Se integra con las principales bases de datos y plataformas de data warehousing.',
+      'Extrae y analiza patrones complejos de grandes conjuntos de datos.;Ideal para inteligencia de mercado, investigación científica y análisis predictivo.;Se integra con las principales bases de datos y plataformas de data warehousing.',
     avatarId: 'agent1',
   },
   {
@@ -31,7 +31,7 @@ const allAgents: Agent[] = [
     name: 'Web Crawler',
     specialty: 'Navega y extrae información de sitios web de forma automatizada.',
     longDescription:
-      'Web Crawler navega por la web de forma autónoma para recopilar información específica según tus criterios. Perfecto para monitoreo de precios, generación de leads o agregación de noticias. Respeta los ficheros robots.txt y gestiona las sesiones de forma eficiente.',
+      'Recopila información específica de la web de forma autónoma.;Perfecto para monitoreo de precios, generación de leads o agregación de noticias.;Respeta los ficheros robots.txt y gestiona las sesiones de forma eficiente.',
     avatarId: 'agent2',
   },
   {
@@ -39,7 +39,7 @@ const allAgents: Agent[] = [
     name: 'Content Analyst',
     specialty: 'Analiza y resume grandes volúmenes de texto y contenido.',
     longDescription:
-      'Content Analyst procesa y comprende grandes cantidades de texto para extraer resúmenes, identificar sentimientos y clasificar temas. Es la herramienta perfecta para analizar opiniones de clientes, informes de mercado o documentación interna.',
+      'Procesa y comprende grandes cantidades de texto.;Extrae resúmenes, identifica sentimientos y clasifica temas.;Ideal para analizar opiniones de clientes, informes de mercado o documentación interna.',
     avatarId: 'agent3',
   },
   {
@@ -48,7 +48,7 @@ const allAgents: Agent[] = [
     specialty:
       'Genera fragmentos de código en múltiples lenguajes de programación.',
     longDescription:
-      'Code Generator acelera el desarrollo de software generando boilerplate, funciones y clases en lenguajes como Python, JavaScript y Java a partir de descripciones en lenguaje natural. Reduce el tiempo de desarrollo y minimiza errores.',
+      'Genera boilerplate, funciones y clases a partir de descripciones en lenguaje natural.;Soporta Python, JavaScript, Java y más.;Reduce el tiempo de desarrollo y minimiza errores.',
     avatarId: 'agent4',
   },
   {
@@ -56,7 +56,7 @@ const allAgents: Agent[] = [
     name: 'Support Bot',
     specialty: 'Asistente virtual para soporte al cliente 24/7.',
     longDescription:
-      'Support Bot ofrece respuestas instantáneas y precisas a las preguntas frecuentes de los clientes. Se integra con tu base de conocimientos para ofrecer una experiencia de soporte coherente y está disponible 24/7 para mejorar la satisfacción del cliente.',
+      'Ofrece respuestas instantáneas y precisas a las preguntas frecuentes.;Se integra con tu base de conocimientos para una experiencia coherente.;Mejora la satisfacción del cliente con disponibilidad 24/7.',
     avatarId: 'agent5',
   },
   {
@@ -64,7 +64,7 @@ const allAgents: Agent[] = [
     name: 'Marketplace Analyzer',
     specialty: 'Analiza tendencias de mercado y precios de la competencia.',
     longDescription:
-      'Marketplace Analyzer monitorea constantemente los mercados online para identificar tendencias emergentes, analizar las estrategias de precios de la competencia y encontrar oportunidades de negocio. Imprescindible para cualquier negocio de e-commerce.',
+      'Monitorea mercados online para identificar tendencias emergentes.;Analiza estrategias de precios de la competencia.;Encuentra nuevas oportunidades de negocio para e-commerce.',
     avatarId: 'agent6',
   },
   {
@@ -72,7 +72,7 @@ const allAgents: Agent[] = [
     name: 'Image Generator',
     specialty: 'Crea imágenes y arte visual a partir de descripciones textuales.',
     longDescription:
-      'Image Generator transforma tus ideas en imágenes de alta calidad. Utilizando modelos de difusión avanzados, puede crear desde logos y prototipos de productos hasta obras de arte complejas a partir de simples descripciones en texto.',
+      'Transforma ideas en imágenes de alta calidad usando modelos de difusión.;Crea desde logos y prototipos hasta obras de arte complejas.;Fácil de usar con descripciones en texto simple.',
     avatarId: 'agent7',
   },
   {
@@ -81,7 +81,7 @@ const allAgents: Agent[] = [
     specialty:
       'Automatiza publicaciones y analiza el engagement en redes sociales.',
     longDescription:
-      'Social Media Manager planifica y automatiza tus publicaciones en múltiples plataformas. Además, analiza el rendimiento de tus contenidos, mide el engagement y te ofrece insights para optimizar tu estrategia en redes sociales.',
+      'Planifica y automatiza publicaciones en múltiples plataformas.;Analiza el rendimiento del contenido y mide el engagement.;Ofrece insights para optimizar tu estrategia en redes sociales.',
     avatarId: 'agent8',
   },
 ];
