@@ -18,9 +18,13 @@ import {
   Coins,
   AreaChart,
   Sparkles,
-  PanelLeft,
 } from 'lucide-react';
 import Link from 'next/link';
+
+// For this prototype, we'll default the links to Project X.
+// A more advanced implementation would use a state management to update these links
+// based on the currently viewed project.
+const defaultProjectId = 'x';
 
 const features = [
   {
@@ -36,12 +40,12 @@ const features = [
   {
     icon: <BrainCircuit />,
     title: 'Humano + IA',
-    href: '/dashboard-360/humano-ia',
+    href: `/dashboard-360/projects/${defaultProjectId}/humano-ia`,
   },
   {
     icon: <Coins />,
     title: 'Créditos',
-    href: '/dashboard-360/credits',
+    href: `/dashboard-360/projects/${defaultProjectId}/credits`,
   },
   {
     icon: <AreaChart />,

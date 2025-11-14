@@ -27,7 +27,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { CreditCard, Banknote, Landmark, ScanFace, CheckCircle, Hourglass, XCircle } from 'lucide-react';
+import { CreditCard, Landmark, ScanFace, CheckCircle, Hourglass, XCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 
@@ -46,9 +46,10 @@ const transactionHistory = [
 
 type AuthStatus = 'idle' | 'authenticating' | 'success' | 'failed';
 
-export default function CreditsPage() {
+export default function CreditsPage({ params }: { params: { projectId: string } }) {
   const [selectedPackage, setSelectedPackage] = useState<(typeof creditPackages)[0] | null>(null);
   const [authStatus, setAuthStatus] = useState<AuthStatus>('idle');
+  const projectId = params.projectId;
 
   const handleRechargeClick = (pkg: (typeof creditPackages)[0]) => {
     setSelectedPackage(pkg);
@@ -128,7 +129,7 @@ export default function CreditsPage() {
   return (
     <main className="flex-1 p-4 md:p-6 lg:p-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">Gestión de Créditos</h1>
+        <h1 className="text-3xl font-bold">Gestión de Créditos (Proyecto {projectId.toUpperCase()})</h1>
         <p className="text-muted-foreground">
           Recarga tu saldo y consulta tu historial de transacciones.
         </p>

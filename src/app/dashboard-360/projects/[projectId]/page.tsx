@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -8,7 +7,6 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from '@/components/ui/card';
 import {
   Table,
@@ -41,108 +39,126 @@ import {
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Separator } from '@/components/ui/separator';
 
-const pieData = [
-  { name: 'Done', value: 400, fill: 'hsl(var(--primary))' },
-  { name: 'In Progress', value: 300, fill: 'hsl(var(--accent))' },
-  { name: 'To Do', value: 300, fill: 'hsl(var(--muted))' },
-];
+const projectData = {
+  x: {
+    name: 'Proyecto X',
+    teamMembers: ['user1', 'user2', 'user3', 'user5'],
+    pieData: [
+      { name: 'Done', value: 400, fill: 'hsl(var(--primary))' },
+      { name: 'In Progress', value: 300, fill: 'hsl(var(--accent))' },
+      { name: 'To Do', value: 300, fill: 'hsl(var(--muted))' },
+    ],
+    activeAgents: [
+      {
+        name: 'Agent A',
+        avatar: PlaceHolderImages.find((img) => img.id === 'agent1')?.imageUrl,
+        task: 'Analizando datos de mercado',
+        status: 'activo',
+      },
+      {
+        name: 'Agent B',
+        avatar: PlaceHolderImages.find((img) => img.id === 'agent2')?.imageUrl,
+        task: 'Generando informe de ventas',
+        status: 'activo',
+      },
+    ],
+    events: [
+      {
+        time: '12:00',
+        title: 'Daily Stand-up',
+        participants: ['user1', 'user2', 'user3'],
+      },
+      {
+        time: '14:30',
+        title: 'Stakeholder Meeting',
+        participants: ['user1', 'user4'],
+      },
+    ],
+    kpis: [
+      { title: 'Customer Satisfaction', value: '98%', trend: '+1.2%' },
+      { title: 'Resolution Rate', value: '92.5%', trend: '+2.1%' },
+    ],
+    teams: [
+      {
+        id: 'team-seo',
+        human: {
+          role: 'SEO Strategist',
+          name: 'Laura Gómez',
+          avatar: PlaceHolderImages.find((img) => img.id === 'user1')?.imageUrl,
+        },
+        agent: {
+          role: 'SEO Positioner Agent',
+          name: 'Agent SEO-5',
+          avatar: PlaceHolderImages.find((img) => img.id === 'agent6')?.imageUrl,
+        },
+        assignedTask: 'Análisis de palabras clave de la competencia.',
+        tasks: [
+            { id: 'seo-1', description: 'Investigar 5 competidores principales', completed: true },
+            { id: 'seo-2', description: 'Extraer 100 palabras clave long-tail', completed: true },
+            { id: 'seo-3', description: 'Generar informe de dificultad de keywords', completed: false },
+        ]
+      },
+    ],
+  },
+  y: {
+    name: 'Proyecto Y',
+    teamMembers: ['user1', 'user4', 'user2'],
+    pieData: [
+      { name: 'Done', value: 150, fill: 'hsl(var(--primary))' },
+      { name: 'In Progress', value: 500, fill: 'hsl(var(--accent))' },
+      { name: 'To Do', value: 350, fill: 'hsl(var(--muted))' },
+    ],
+    activeAgents: [
+      {
+        name: 'Agent Y-1',
+        avatar: PlaceHolderImages.find((img) => img.id === 'agent4')?.imageUrl,
+        task: 'Revisando Pull Requests',
+        status: 'activo',
+      },
+      {
+        name: 'Agent Y-2',
+        avatar: PlaceHolderImages.find((img) => img.id === 'agent5')?.imageUrl,
+        task: 'Monitorizando logs de producción',
+        status: 'activo',
+      },
+    ],
+    events: [
+      {
+        time: '10:00',
+        title: 'Sync de Desarrollo',
+        participants: ['user4', 'user2'],
+      },
+    ],
+    kpis: [
+      { title: 'Time to Market', value: '3 semanas', trend: '-10%' },
+      { title: 'Bugs Críticos', value: '1', trend: '+1' },
+    ],
+    teams: [
+       {
+        id: 'team-dev-y',
+        human: {
+          role: 'Lead Developer',
+          name: 'Sofía Chen',
+          avatar: PlaceHolderImages.find((img) => img.id === 'user5')?.imageUrl,
+        },
+        agent: {
+          role: 'Code Review Agent',
+          name: 'CodeGen Pro',
+          avatar: PlaceHolderImages.find((img) => img.id === 'agent4')?.imageUrl,
+        },
+        assignedTask: 'Revisión de pull request #241 (Proyecto Y).',
+        tasks: [
+            { id: 'dev-1-y', description: 'Analizar cobertura de tests', completed: true },
+            { id: 'dev-2-y', description: 'Identificar posibles "code smells"', completed: true },
+            { id: 'dev-3-y', description: 'Sugerir optimizaciones de rendimiento', completed: false },
+        ]
+      },
+    ],
+  }
+};
 
-const activeAgents = [
-  {
-    name: 'Agent A',
-    avatar: PlaceHolderImages.find((img) => img.id === 'agent1')?.imageUrl,
-    task: 'Analizando datos de mercado',
-    status: 'activo',
-  },
-  {
-    name: 'Agent B',
-    avatar: PlaceHolderImages.find((img) => img.id === 'agent2')?.imageUrl,
-    task: 'Generando informe de ventas',
-    status: 'activo',
-  },
-  {
-    name: 'Agent C',
-    avatar: PlaceHolderImages.find((img) => img.id === 'agent4')?.imageUrl,
-    task: 'Optimización de código backend',
-    status: 'inactivo',
-  },
-  {
-    name: 'Agent D',
-    avatar: PlaceHolderImages.find((img) => img.id === 'agent5')?.imageUrl,
-    task: 'Monitorizando logs de producción',
-    status: 'activo',
-  },
-];
-
-const events = [
-  {
-    time: '12:00',
-    title: 'Daily Stand-up',
-    participants: ['user1', 'user2', 'user3'],
-  },
-  {
-    time: '14:30',
-    title: 'Stakeholder Meeting',
-    participants: ['user1', 'user4'],
-  },
-  {
-    time: '16:00',
-    title: 'Design Review',
-    participants: ['user2', 'user5', 'user3'],
-  },
-];
-
-const kpis = [
-  { title: 'Customer Satisfaction', value: '98%', trend: '+1.2%' },
-  { title: 'Agent Response Time', value: '1.2min', trend: '-5.4%' },
-  { title: 'Resolution Rate', value: '92.5%', trend: '+2.1%' },
-  { title: 'Active Users', value: '1,204', trend: '+150' },
-];
-
-const teams = [
-  {
-    id: 'team-seo',
-    human: {
-      role: 'SEO Strategist',
-      name: 'Laura Gómez',
-      avatar: PlaceHolderImages.find((img) => img.id === 'user1')?.imageUrl,
-    },
-    agent: {
-      role: 'SEO Positioner Agent',
-      name: 'Agent SEO-5',
-      avatar: PlaceHolderImages.find((img) => img.id === 'agent6')?.imageUrl,
-    },
-    assignedTask: 'Análisis de palabras clave de la competencia.',
-    tasks: [
-        { id: 'seo-1', description: 'Investigar 5 competidores principales', completed: true },
-        { id: 'seo-2', description: 'Extraer 100 palabras clave long-tail', completed: true },
-        { id: 'seo-3', description: 'Generar informe de dificultad de keywords', completed: false },
-        { id: 'seo-4', description: 'Proponer 3 temas de contenido basados en datos', completed: false },
-    ]
-  },
-  {
-    id: 'team-content',
-    human: {
-      role: 'Content Manager',
-      name: 'Carlos Rivas',
-      avatar: PlaceHolderImages.find((img) => img.id === 'user2')?.imageUrl,
-    },
-    agent: {
-      role: 'Article Writer Agent',
-      name: 'Writer-Bot 2.1',
-      avatar: PlaceHolderImages.find((img) => img.id === 'agent3')?.imageUrl,
-    },
-    assignedTask: 'Redacción de borrador para el blog post de "Novedades Q3".',
-    tasks: [
-        { id: 'content-1', description: 'Esquema del artículo', completed: true },
-        { id: 'content-2', description: 'Redacción de la introducción', completed: true },
-        { id: 'content-3', description: 'Desarrollo del cuerpo del artículo', completed: false },
-    ]
-  },
-];
-
-type Team = (typeof teams)[0];
-
+type Team = (typeof projectData)['x']['teams'][0];
+type ProjectId = keyof typeof projectData;
 
 export default function ProjectDetailPage({ params }: { params: { projectId: string } }) {
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
@@ -150,37 +166,28 @@ export default function ProjectDetailPage({ params }: { params: { projectId: str
   const getAvatar = (id: string) => PlaceHolderImages.find(img => img.id === id)?.imageUrl;
   const getFallback = (name: string) => name.charAt(0);
 
-  const projectName = params.projectId.toUpperCase();
+  const projectId = params.projectId as ProjectId;
+  const currentProject = projectData[projectId] || projectData.x; // Fallback to project X
 
   return (
     <main className="flex-1 p-4 md:p-6 lg:p-8 space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-            <h1 className="text-3xl font-bold">Proyecto {projectName}</h1>
+            <h1 className="text-3xl font-bold">{currentProject.name}</h1>
             <p className="text-muted-foreground">
               Una vista general del estado actual del proyecto.
             </p>
         </div>
         <div className="flex items-center gap-4">
             <div className="flex items-center -space-x-2">
-                <Avatar className="border-2 border-background">
-                    <AvatarImage src={getAvatar('user2')} />
-                    <AvatarFallback>JL</AvatarFallback>
-                </Avatar>
-                <Avatar className="border-2 border-background">
-                    <AvatarImage src={getAvatar('user3')} />
-                    <AvatarFallback>IN</AvatarFallback>
-                </Avatar>
-                 <Avatar className="border-2 border-background">
-                    <AvatarImage src={getAvatar('user5')} />
-                    <AvatarFallback>SG</AvatarFallback>
-                </Avatar>
+                {currentProject.teamMembers.map((user, index) => (
+                   <Avatar key={index} className="border-2 border-background">
+                        <AvatarImage src={getAvatar(user)} />
+                        <AvatarFallback>{user.charAt(0).toUpperCase()}</AvatarFallback>
+                    </Avatar>
+                ))}
             </div>
-            <Avatar className="border-2 border-primary">
-                <AvatarImage src={getAvatar('user1')} />
-                <AvatarFallback>OM</AvatarFallback>
-            </Avatar>
         </div>
       </div>
       
@@ -195,7 +202,7 @@ export default function ProjectDetailPage({ params }: { params: { projectId: str
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <ChartTooltipContent hideLabel />
-                  <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} labelLine={false}
+                  <Pie data={currentProject.pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} labelLine={false}
                     label={({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
                       const RADIAN = Math.PI / 180;
                       const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -204,7 +211,7 @@ export default function ProjectDetailPage({ params }: { params: { projectId: str
                       return <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central" className="text-xs font-bold">{`${(percent * 100).toFixed(0)}%`}</text>;
                     }}
                   >
-                    {pieData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.fill} stroke={entry.fill} />)}
+                    {currentProject.pieData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.fill} stroke={entry.fill} />)}
                   </Pie>
                 </PieChart>
               </ResponsiveContainer>
@@ -226,7 +233,7 @@ export default function ProjectDetailPage({ params }: { params: { projectId: str
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {activeAgents.map((agent) => (
+                    {currentProject.activeAgents.map((agent) => (
                         <TableRow key={agent.name}>
                             <TableCell>
                                 <Avatar>
@@ -255,7 +262,7 @@ export default function ProjectDetailPage({ params }: { params: { projectId: str
           <CardContent>
             <Table>
               <TableBody>
-                {events.map((event) => (
+                {currentProject.events.map((event) => (
                   <TableRow key={event.title}>
                     <TableCell className="w-[60px] font-medium">{event.time}</TableCell>
                     <TableCell>{event.title}</TableCell>
@@ -281,7 +288,7 @@ export default function ProjectDetailPage({ params }: { params: { projectId: str
             <CardTitle className="flex items-center gap-2"><TrendingUp className="h-5 w-5" />KPIs Clave</CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-2 gap-4">
-            {kpis.map((kpi) => (
+            {currentProject.kpis.map((kpi) => (
               <div key={kpi.title} className="rounded-lg bg-muted p-4">
                 <p className="text-sm text-muted-foreground">{kpi.title}</p>
                 <p className="text-2xl font-bold">{kpi.value}</p>
@@ -296,7 +303,7 @@ export default function ProjectDetailPage({ params }: { params: { projectId: str
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Humano + IA Teams</h2>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {teams.map((team) => (
+          {currentProject.teams.map((team) => (
             <Card key={team.id} className="cursor-pointer hover:border-primary transition-colors" onClick={() => setSelectedTeam(team)}>
               <CardHeader>
                   <div className="flex items-center gap-4">
@@ -372,4 +379,3 @@ export default function ProjectDetailPage({ params }: { params: { projectId: str
     </main>
   );
 }
-

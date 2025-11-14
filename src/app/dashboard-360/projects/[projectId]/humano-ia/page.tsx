@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -22,93 +21,121 @@ import { CheckCircle, Circle, FileText } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Separator } from '@/components/ui/separator';
 
-const teams = [
-  {
-    id: 'team-seo',
-    human: {
-      role: 'SEO Strategist',
-      name: 'Laura Gómez',
-      avatar: PlaceHolderImages.find((img) => img.id === 'user1')?.imageUrl,
-    },
-    agent: {
-      role: 'SEO Positioner Agent',
-      name: 'Agent SEO-5',
-      avatar: PlaceHolderImages.find((img) => img.id === 'agent6')?.imageUrl,
-    },
-    assignedTask: 'Análisis de palabras clave de la competencia.',
-    tasks: [
-        { id: 'seo-1', description: 'Investigar 5 competidores principales', completed: true },
-        { id: 'seo-2', description: 'Extraer 100 palabras clave long-tail', completed: true },
-        { id: 'seo-3', description: 'Generar informe de dificultad de keywords', completed: false },
-        { id: 'seo-4', description: 'Proponer 3 temas de contenido basados en datos', completed: false },
+const projectData = {
+  x: {
+    teams: [
+      {
+        id: 'team-seo',
+        human: {
+          role: 'SEO Strategist',
+          name: 'Laura Gómez',
+          avatar: PlaceHolderImages.find((img) => img.id === 'user1')?.imageUrl,
+        },
+        agent: {
+          role: 'SEO Positioner Agent',
+          name: 'Agent SEO-5',
+          avatar: PlaceHolderImages.find((img) => img.id === 'agent6')?.imageUrl,
+        },
+        assignedTask: 'Análisis de palabras clave de la competencia.',
+        tasks: [
+            { id: 'seo-1', description: 'Investigar 5 competidores principales', completed: true },
+            { id: 'seo-2', description: 'Extraer 100 palabras clave long-tail', completed: true },
+            { id: 'seo-3', description: 'Generar informe de dificultad de keywords', completed: false },
+            { id: 'seo-4', description: 'Proponer 3 temas de contenido basados en datos', completed: false },
+        ]
+      },
+      {
+        id: 'team-content',
+        human: {
+          role: 'Content Manager',
+          name: 'Carlos Rivas',
+          avatar: PlaceHolderImages.find((img) => img.id === 'user2')?.imageUrl,
+        },
+        agent: {
+          role: 'Article Writer Agent',
+          name: 'Writer-Bot 2.1',
+          avatar: PlaceHolderImages.find((img) => img.id === 'agent3')?.imageUrl,
+        },
+        assignedTask: 'Redacción de borrador para el blog post de "Novedades Q3".',
+        tasks: [
+            { id: 'content-1', description: 'Esquema del artículo', completed: true },
+            { id: 'content-2', description: 'Redacción de la introducción', completed: true },
+            { id: 'content-3', description: 'Desarrollo del cuerpo del artículo', completed: false },
+        ]
+      },
+    ],
+    projectTasks: [
+        { id: 'task-1', description: 'Investigación inicial de mercado (Proyecto X)', completed: true },
+        { id: 'task-2', description: 'Definición de KPIs del proyecto (Proyecto X)', completed: true },
+        { id: 'task-3', description: 'Análisis de palabras clave de la competencia', completed: false },
     ]
   },
-  {
-    id: 'team-content',
-    human: {
-      role: 'Content Manager',
-      name: 'Carlos Rivas',
-      avatar: PlaceHolderImages.find((img) => img.id === 'user2')?.imageUrl,
-    },
-    agent: {
-      role: 'Article Writer Agent',
-      name: 'Writer-Bot 2.1',
-      avatar: PlaceHolderImages.find((img) => img.id === 'agent3')?.imageUrl,
-    },
-    assignedTask: 'Redacción de borrador para el blog post de "Novedades Q3".',
-    tasks: [
-        { id: 'content-1', description: 'Esquema del artículo', completed: true },
-        { id: 'content-2', description: 'Redacción de la introducción', completed: true },
-        { id: 'content-3', description: 'Desarrollo del cuerpo del artículo', completed: false },
+  y: {
+    teams: [
+      {
+        id: 'team-dev-y',
+        human: {
+          role: 'Lead Developer',
+          name: 'Sofía Chen',
+          avatar: PlaceHolderImages.find((img) => img.id === 'user5')?.imageUrl,
+        },
+        agent: {
+          role: 'Code Review Agent',
+          name: 'CodeGen Pro',
+          avatar: PlaceHolderImages.find((img) => img.id === 'agent4')?.imageUrl,
+        },
+        assignedTask: 'Revisión de pull request #241 (Proyecto Y).',
+        tasks: [
+            { id: 'dev-1-y', description: 'Analizar cobertura de tests', completed: true },
+            { id: 'dev-2-y', description: 'Identificar posibles "code smells"', completed: true },
+            { id: 'dev-3-y', description: 'Sugerir optimizaciones de rendimiento', completed: false },
+        ]
+      },
+       {
+        id: 'team-analytics-y',
+        human: {
+          role: 'Data Analyst',
+          name: 'William Kim',
+          avatar: PlaceHolderImages.find((img) => img.id === 'user4')?.imageUrl,
+        },
+        agent: {
+          role: 'Predictive Modeler',
+          name: 'Analytica-Prime',
+          avatar: PlaceHolderImages.find((img) => img.id === 'agent7')?.imageUrl,
+        },
+        assignedTask: 'Crear modelo predictivo de churn de clientes.',
+        tasks: [
+            { id: 'analytics-1-y', description: 'Limpieza de datos de usuarios', completed: true },
+            { id: 'analytics-2-y', description: 'Entrenamiento del modelo v1', completed: false },
+        ]
+      },
+    ],
+    projectTasks: [
+      { id: 'task-y-1', description: 'Integración de nuevo motor de IA', completed: false },
+      { id: 'task-y-2', description: 'Fase de pruebas A/B del motor', completed: false },
     ]
-  },
-  {
-    id: 'team-dev',
-    human: {
-      role: 'Lead Developer',
-      name: 'Sofía Chen',
-      avatar: PlaceHolderImages.find((img) => img.id === 'user5')?.imageUrl,
-    },
-    agent: {
-      role: 'Code Review Agent',
-      name: 'CodeGen Pro',
-      avatar: PlaceHolderImages.find((img) => img.id === 'agent4')?.imageUrl,
-    },
-    assignedTask: 'Revisión de pull request #241.',
-    tasks: [
-        { id: 'dev-1', description: 'Analizar cobertura de tests', completed: true },
-        { id: 'dev-2', description: 'Identificar posibles "code smells"', completed: false },
-        { id: 'dev-3', description: 'Sugerir optimizaciones de rendimiento', completed: false },
-    ]
-  },
-];
+  }
+}
 
-const projectTasks = [
-  { id: 'task-1', description: 'Investigación inicial de mercado', completed: true },
-  { id: 'task-2', description: 'Definición de KPIs del proyecto', completed: true },
-  { id: 'task-3', description: 'Análisis de palabras clave de la competencia', completed: false },
-  { id: 'task-4', description: 'Creación de mockups de la nueva interfaz', completed: true },
-  { id: 'task-5', description: 'Desarrollo del componente de autenticación', completed: false },
-  { id: 'task-6', description: 'Redacción de borrador para el blog post de "Novedades Q3"', completed: false },
-  { id: 'task-7', description: 'Preparar presentación para stakeholders', completed: false },
-];
+type Team = (typeof projectData)['x']['teams'][0];
+type ProjectId = keyof typeof projectData;
 
-type Team = (typeof teams)[0];
-
-export default function HumanoIaPage() {
+export default function HumanoIaPage({ params }: { params: { projectId: string } }) {
     const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
+    const projectId = params.projectId as ProjectId;
+    const currentProject = projectData[projectId] || projectData.x; // Fallback to project X
 
   return (
     <main className="flex-1 p-4 md:p-6 lg:p-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">Humano + IA Teams</h1>
+        <h1 className="text-3xl font-bold">Humano + IA Teams (Proyecto {projectId.toUpperCase()})</h1>
         <p className="text-muted-foreground">
-          Visión de los equipos y tareas asignadas para el Proyecto X.
+          Visión de los equipos y tareas asignadas para el Proyecto {projectId.toUpperCase()}.
         </p>
       </div>
 
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {teams.map((team) => (
+        {currentProject.teams.map((team) => (
           <Card key={team.id} className="cursor-pointer hover:border-primary transition-colors" onClick={() => setSelectedTeam(team)}>
             <CardHeader>
                 <div className="flex items-center gap-4">
@@ -143,12 +170,12 @@ export default function HumanoIaPage() {
 
        <Card className="mt-8">
         <CardHeader>
-            <CardTitle>Checklist del Proyecto X</CardTitle>
+            <CardTitle>Checklist del Proyecto {projectId.toUpperCase()}</CardTitle>
             <CardDescription>Estado de todas las tareas planificadas.</CardDescription>
         </CardHeader>
         <CardContent>
             <div className="space-y-4">
-                {projectTasks.map(task => (
+                {currentProject.projectTasks.map(task => (
                     <div key={task.id} className="flex items-center gap-4 rounded-md border p-4">
                         {task.completed ? (
                             <CheckCircle className="h-6 w-6 text-green-500" />
