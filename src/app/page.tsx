@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 export default function Home() {
   const projects = [
     {
-      name: "Agent Store (Final)",
+      name: "Agent Store",
       description: "La tienda de agentes con el chatbot de ayuda integrado.",
       href: "/agent-store"
     },
@@ -16,8 +16,13 @@ export default function Home() {
       href: "/llm-agent-store"
     },
     {
+      name: "Agent Dashboard",
+      description: "El dashboard inicial para la gestión de agentes.",
+      href: "/dashboard"
+    },
+    {
       name: "Dashboard 360 (Nuevo)",
-      description: "El nuevo dashboard para equipos y empresas.",
+      description: "El nuevo dashboard para equipos y empresas (lienzo en blanco).",
       href: "/dashboard-360"
     }
   ];
