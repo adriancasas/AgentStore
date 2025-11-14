@@ -26,7 +26,7 @@ const features = [
   {
     icon: <LayoutGrid />,
     title: 'Workspaces',
-    href: '#',
+    href: '/dashboard-360',
   },
   {
     icon: <Users />,
@@ -41,7 +41,7 @@ const features = [
   {
     icon: <Coins />,
     title: 'Créditos',
-    href: '#',
+    href: '/dashboard-360/credits',
   },
   {
     icon: <AreaChart />,
