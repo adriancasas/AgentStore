@@ -31,7 +31,7 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from 'recharts';
-import { TrendingUp, Users, Calendar } from 'lucide-react';
+import { TrendingUp, Users, Calendar, Bot } from 'lucide-react';
 import {
   ChartContainer,
   ChartTooltip,
@@ -45,12 +45,31 @@ const pieData = [
   { name: 'To Do', value: 300, fill: 'hsl(var(--muted))' },
 ];
 
-const barData = [
-  { name: 'Agent A', performance: 98 },
-  { name: 'Agent B', performance: 86 },
-  { name: 'Agent C', performance: 75 },
-  { name: 'Agent D', performance: 89 },
-  { name: 'Agent E', performance: 92 },
+const activeAgents = [
+  {
+    name: 'Agent A',
+    avatar: PlaceHolderImages.find((img) => img.id === 'agent1')?.imageUrl,
+    task: 'Analizando datos de mercado',
+    status: 'activo',
+  },
+  {
+    name: 'Agent B',
+    avatar: PlaceHolderImages.find((img) => img.id === 'agent2')?.imageUrl,
+    task: 'Generando informe de ventas',
+    status: 'activo',
+  },
+  {
+    name: 'Agent C',
+    avatar: PlaceHolderImages.find((img) => img.id === 'agent4')?.imageUrl,
+    task: 'Optimización de código backend',
+    status: 'inactivo',
+  },
+  {
+    name: 'Agent D',
+    avatar: PlaceHolderImages.find((img) => img.id === 'agent5')?.imageUrl,
+    task: 'Monitorizando logs de producción',
+    status: 'activo',
+  },
 ];
 
 const events = [
@@ -92,11 +111,33 @@ const kpis = [
 export default function Dashboard360Page() {
   return (
     <main className="flex-1 p-4 md:p-6 lg:p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Proyecto X</h1>
-        <p className="text-muted-foreground">
-          Una vista general del estado actual del proyecto.
-        </p>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
+        <div>
+            <h1 className="text-3xl font-bold">Proyecto X</h1>
+            <p className="text-muted-foreground">
+              Una vista general del estado actual del proyecto.
+            </p>
+        </div>
+        <div className="flex items-center gap-4">
+            <div className="flex items-center -space-x-2">
+                <Avatar className="border-2 border-background">
+                    <AvatarImage src={PlaceHolderImages.find((img) => img.id === 'user2')?.imageUrl} />
+                    <AvatarFallback>JL</AvatarFallback>
+                </Avatar>
+                <Avatar className="border-2 border-background">
+                    <AvatarImage src={PlaceHolderImages.find((img) => img.id === 'user3')?.imageUrl} />
+                    <AvatarFallback>IN</AvatarFallback>
+                </Avatar>
+                <Avatar className="border-2 border-background">
+                    <AvatarImage src={PlaceHolderImages.find((img) => img.id === 'user5')?.imageUrl} />
+                    <AvatarFallback>SG</AvatarFallback>
+                </Avatar>
+            </div>
+            <Avatar className="border-2 border-primary">
+                <AvatarImage src={PlaceHolderImages.find((img) => img.id === 'user1')?.imageUrl} />
+                <AvatarFallback>OM</AvatarFallback>
+            </Avatar>
+        </div>
       </div>
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-2">
         {/* Quadrant 1: Pie Chart */}
@@ -177,29 +218,51 @@ export default function Dashboard360Page() {
           </CardFooter>
         </Card>
 
-        {/* Quadrant 2: Bar Chart */}
+        {/* Quadrant 2: Active Agents */}
         <Card>
           <CardHeader>
-            <CardTitle>Rendimiento de Agentes</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+                <Bot />
+                Agentes Activos
+            </CardTitle>
             <CardDescription>
-              Performance individual en el último ciclo.
+              Agentes trabajando en este proyecto y sus tareas actuales.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={{}} className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={barData} margin={{ top: 20, right: 20, left: -10, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={8} />
-                  <YAxis tickLine={false} axisLine={false} tickMargin={8}/>
-                  <Tooltip
-                    cursor={{ fill: 'hsl(var(--muted))' }}
-                    content={<ChartTooltipContent indicator="dot" />}
-                  />
-                  <Bar dataKey="performance" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartContainer>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead className="w-[64px]">Agente</TableHead>
+                        <TableHead>Tarea Actual</TableHead>
+                        <TableHead className="text-right">Estado</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {activeAgents.map((agent) => (
+                        <TableRow key={agent.name}>
+                            <TableCell>
+                                <Avatar>
+                                    <AvatarImage src={agent.avatar} />
+                                    <AvatarFallback>{agent.name.charAt(0)}</AvatarFallback>
+                                </Avatar>
+                            </TableCell>
+                            <TableCell>
+                                <p className="font-medium">{agent.name}</p>
+                                <p className="text-sm text-muted-foreground">{agent.task}</p>
+                            </TableCell>
+                            <TableCell className="text-right">
+                                <Badge
+                                  variant={agent.status === 'activo' ? 'default' : 'outline'}
+                                  className={agent.status === 'activo' ? 'bg-green-100 text-green-800' : ''}
+                                >
+                                  {agent.status}
+                                </Badge>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
           </CardContent>
         </Card>
 
@@ -271,3 +334,4 @@ export default function Dashboard360Page() {
     </main>
   );
 }
+
