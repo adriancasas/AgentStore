@@ -94,12 +94,12 @@ const projectData = {
        {
         id: 'team-analytics-y',
         human: {
-          role: 'Data Analyst',
+          role: 'Redactor SEO',
           name: 'William Kim',
           avatar: PlaceHolderImages.find((img) => img.id === 'user4')?.imageUrl,
         },
         agent: {
-          role: 'Predictive Modeler',
+          role: 'Blog Optimizator',
           name: 'Analytica-Prime',
           avatar: PlaceHolderImages.find((img) => img.id === 'agent7')?.imageUrl,
         },
@@ -232,3 +232,5 @@ export default function HumanoIaPage({ params }: { params: { projectId: string }
     </main>
   );
 }
+
+    
