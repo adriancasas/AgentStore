@@ -36,7 +36,7 @@ const features = [
   {
     icon: <BrainCircuit />,
     title: 'Humano + IA',
-    href: '#',
+    href: '/dashboard-360/humano-ia',
   },
   {
     icon: <Coins />,
