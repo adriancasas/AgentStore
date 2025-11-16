@@ -1,0 +1,81 @@
+{
+  "agents": [
+    {
+      "id": "content-creator",
+      "name": "Content Creator Pro",
+      "emoji": "🖊️",
+      "short_description": "Crea contenido profesional en segundos",
+      "long_description": "Generate high-quality blog posts, social media content, and marketing copy with advanced AI algorithms.",
+      "featured": true,
+      "features": [
+        "Procesamiento en tiempo real con IA avanzada",
+        "Integración simple con tus herramientas",
+        "Soporte 24/7 en español",
+        "Actualizaciones automáticas constantes",
+        "Seguridad y privacidad garantizada",
+        "Resultados verificados por expertos"
+      ],
+      "team_with": [
+        {"name": "SEO Optimizer", "emoji": "🐝"},
+        {"name": "Social Media Manager", "emoji": "📢"}
+      ]
+    },
+    {
+      "id": "data-analyst",
+      "name": "Data Analyst AI",
+      "emoji": "📈",
+      "short_description": "Convierte datos en decisiones inteligentes",
+      "long_description": "Transform raw data into actionable insights with powerful AI-driven analytics and visualization tools.",
+      "featured": false,
+      "features": [
+        "Análisis predictivo avanzado",
+        "Dashboards interactivos",
+        "Integración con múltiples fuentes de datos",
+        "Reportes automáticos",
+        "Machine Learning integrado"
+      ],
+      "team_with": [
+        {"name": "Business Intelligence", "emoji": "🎯"},
+        {"name": "Report Generator", "emoji": "📄"}
+      ]
+    },
+    {
+      "id": "code-assistant",
+      "name": "Code Assistant",
+      "emoji": "💻",
+      "short_description": "Tu copiloto para programar más rápido",
+      "long_description": "Accelerate your development workflow with intelligent code suggestions, debugging, and documentation.",
+      "featured": false,
+      "features": [
+        "Autocompletado inteligente",
+        "Detección de bugs en tiempo real",
+        "Generación de documentación",
+        "Refactoring automático",
+        "Soporte para múltiples lenguajes"
+      ],
+      "team_with": [
+        {"name": "Testing Assistant", "emoji": "🧪"},
+        {"name": "DevOps Helper", "emoji": "⚙️"}
+      ]
+    },
+    {
+      "id": "customer-support",
+      "name": "Customer Support Bot",
+      "emoji": "💬",
+      "short_description": "Atiende a tus clientes 24/7",
+      "long_description": "Provide instant, intelligent customer support with natural language processing and multi-language capabilities.",
+      "featured": false,
+      "features": [
+        "Respuestas instantáneas",
+        "Aprendizaje continuo",
+        "Multiidioma",
+        "Integración con CRM",
+        "Análisis de sentimiento"
+      ],
+      "team_with": [
+        {"name": "Ticket Manager", "emoji": "🎫"},
+        {"name": "Feedback Analyzer", "emoji": "📊"}
+      ]
+    }
+  ]
+}
